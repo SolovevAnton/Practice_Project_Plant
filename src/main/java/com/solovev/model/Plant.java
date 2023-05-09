@@ -23,11 +23,12 @@ public class Plant implements Cloneable {
      */
     private BigDecimal price;
     private Size size;
+
     public Plant() {
     }
 
     /**
-     * @param name name of the plant
+     * @param name  name of the plant
      * @param price price of a plant, Cannot be negative
      * @throws IllegalArgumentException if one of values above is negative
      */
@@ -55,6 +56,19 @@ public class Plant implements Cloneable {
     }
 
     /**
+     * Copy Constructor for plant
+     * @param other - plant to be copied
+     */
+    public Plant(Plant other){
+        this.name = other.name;
+        this.color = other.color;
+        this.numberOfBranches = other.numberOfBranches;
+        this.timeOfLife = other.timeOfLife;
+        this.price = other.price;
+        this.size = other.size == null ? null : other.size.clone(); //excessive, since Size is immutable, but kept for learning purposes
+    }
+
+    /**
      * Method to add price. Add negative value to decrease
      *
      * @param price price to add
@@ -62,6 +76,17 @@ public class Plant implements Cloneable {
      */
     public void addPrice(BigDecimal price) {
         setPrice(this.price.add(price));
+    }
+
+    @Override
+    public Plant clone() {
+        try {
+            Plant plant = (Plant) super.clone();
+            plant.setSize(this.size.clone()); //excessive, since Size is immutable, but kept for learning purposes
+            return plant;
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError();
+        }
     }
 
     public String getName() {

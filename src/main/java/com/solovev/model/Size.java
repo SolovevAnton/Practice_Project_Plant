@@ -34,6 +34,24 @@ public class Size implements Cloneable {
         setPerimeter(height, length);
     }
 
+    /**
+     * CopyConstructor
+     * @param other Size to be copied
+     */
+    public Size(Size other){
+        this.height = other.height;
+        this.length = other.length;
+        this.perimeter = other.perimeter;
+    }
+    @Override
+    public Size clone(){
+        try {
+            return (Size) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError();
+        }
+    }
+
     public int getHeight() {
         return height;
     }
