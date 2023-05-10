@@ -26,12 +26,9 @@ public class Size implements Cloneable {
      * @throws IllegalArgumentException if height or length is negative
      */
     public Size(int height, int length) {
-        if (height < 0 || length < 0) {
-            throw new IllegalArgumentException("Value can't be negative");
-        }
         this.height = height;
         this.length = length;
-        setPerimeter(height, length);
+        setPerimeter();
     }
 
     /**
@@ -64,13 +61,17 @@ public class Size implements Cloneable {
         return perimeter;
     }
 
-    /**
-     * Sets perimeter
-     *
-     * @param height height of the plant pod, can't be negative
-     * @param length length of the plant pod, can't be negative
-     */
-    private void setPerimeter(int height, int length) {
+    public void setHeight(int height) {
+        this.height = height;
+        setPerimeter();
+    }
+
+    public void setLength(int length) {
+        this.length = length;
+        setPerimeter();
+    }
+
+    private void setPerimeter() {
         this.perimeter = (height + length) * 2;
     }
 

@@ -4,8 +4,8 @@ import java.util.Arrays;
 import java.util.Objects;
 import java.util.Optional;
 
-public class Garden {
-    private final Plant[] plants;
+public class Garden implements Cloneable {
+    private Plant[] plants;
     /**
      * Index shows how much not null elements there are in plants
      */
@@ -113,7 +113,7 @@ public class Garden {
      */
     public boolean insert(Plant plant, int index) {
         if (count() < plants.length &&
-                index < count()) { // better to check, or to throw?
+                index < count()) {
             System.arraycopy(plants, index,
                     plants, index + 1, plants.length - index - 1);
             plants[index] = plant;
@@ -121,6 +121,20 @@ public class Garden {
             return true;
         } else {
             return false;
+        }
+    }
+
+    @Override
+    public Garden clone() {
+        try {
+            Garden cloned = (Garden) super.clone();
+            cloned.plants = new Plant[plants.length];
+            for (int i = 0; i < plants.length; i++) {
+                cloned.plants[i] = this.plants[i].clone();
+            }
+            return cloned;
+        } catch (CloneNotSupportedException e) {
+            throw new RuntimeException(e);
         }
     }
 

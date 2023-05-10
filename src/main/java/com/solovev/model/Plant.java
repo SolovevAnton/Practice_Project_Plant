@@ -8,7 +8,7 @@ import java.util.Objects;
  * Class describes Plant Object
  */
 public class Plant implements Cloneable {
-    private String name;
+    private String name = "";
     private String color;
     /**
      * cannot be negative
@@ -22,7 +22,7 @@ public class Plant implements Cloneable {
      * cannot be negative
      */
     private BigDecimal price;
-    private Size size;
+    private Size size = new Size();
 
     public Plant() {
     }
@@ -65,7 +65,7 @@ public class Plant implements Cloneable {
         this.numberOfBranches = other.numberOfBranches;
         this.timeOfLife = other.timeOfLife;
         this.price = other.price;
-        this.size = other.size == null ? null : other.size.clone(); //excessive, since Size is immutable, but kept for learning purposes
+        this.size = new Size(other.size); //excessive, since Size is immutable, but kept for learning purposes
     }
 
     /**
@@ -82,7 +82,7 @@ public class Plant implements Cloneable {
     public Plant clone() {
         try {
             Plant plant = (Plant) super.clone();
-            plant.setSize(this.size.clone()); //excessive, since Size is immutable, but kept for learning purposes
+            plant.size = this.size.clone(); //excessive, since Size is immutable, but kept for learning purposes
             return plant;
         } catch (CloneNotSupportedException e) {
             throw new AssertionError();
